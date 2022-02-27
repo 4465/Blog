@@ -9,46 +9,93 @@
 <%@page import="java.util.List" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<link rel="stylesheet" href="bootstrap-3.4.1-dist/css/bootstrap.min.css">
+
+<script src="bootstrap-5.1.3/dist/js/bootstrap.min.js"></script>
+<script src="js/jquery-3.3.1.js"></script>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>先锋的个人技术笔记</title>
 </head>
 <body>
-    <%
-        String username = null;
-        Cookie[] cookies = request.getCookies();
-        if(cookies!=null){
-            for(Cookie cookie:cookies){
-                if(cookie.getName().equals("username")){
-                    username = cookie.getValue();
-                }
-            }
-        }
-        if(username != null){
+    <div>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand">先锋博客</a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li><a href="">About</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">小工具<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">正则转换</a></li>
+                                <li><a href="#">加密解密</a></li>
+                                <li><a href="#">代码规范</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="http://mv.688ing.com/">vip视频解析</a></li>
+                                <li><a href="https://music.laod.cn/">Music</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">工具软件</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <form class="navbar-form navbar-left">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search">
+                        </div>
+                        <button type="submit" class="btn btn-default">Submit</button>
+                    </form>
+                    <ul class="nav navbar-nav navbar-right">
+                        <%
+                            String username = null;
+                            Cookie[] cookies = request.getCookies();
+                            if(cookies!=null){
+                                for(Cookie cookie:cookies){
+                                    if(cookie.getName().equals("username")){
+                                        username = cookie.getValue();
+                                    }
+                                }
+                            }
+                            if(username != null){
 
 
-    %>
-    <ul>
-        <li><a href="index.jsp"><span>主页</span></a></li>
-        <li><a href="product.jsp"><span>产品</span></a></li>
-        <li><a href="cart.jsp"><span>大车</span></a></li>
-        <li><a href="search_page.jsp"><span>搜索</span></a></li>
-        <li><a href="LogoutServlet"><span>登出</span></a></li>
-        <li><a href="update_user.jsp?username=<%=username %>"><span><%=username%></span></a></li>
-    </ul>
-    <%
-    } else {
-    %>
-    <ul>
-        <li><a href="index.jsp"><span>主页</span></a></li>
-        <li><a href="product.jsp"><span>产品</span></a></li>
-        <li><a href="search_page.jsp"><span>搜索</span></a></li>
-        <li><a href="register.jsp"><span>注册</span></a></li>
-        <li><a href="login.jsp"><span>登录</span></a></li>
-    </ul>
-    <%
-        }
-    %>
+                        %>
+                        <li><a href="">写博客</a></li>
+                        <li class="dropdown">
+
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%=username%><span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="">个人中心</a></li>
+                                <li><a href="">我的博客</a></li>
+                                <li><a href="">管理博客</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="LogoutServlet">登出</a></li>
+                            </ul>
+                        </li>
+                        <%
+                        } else {
+                        %>
+                        <li><a href="login.jsp">登录</a></li>
+                        <li><a href="register.jsp">注册</a></li>
+                        <%
+                            }
+                        %>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+    </div>
+
 </body>
 </html>
