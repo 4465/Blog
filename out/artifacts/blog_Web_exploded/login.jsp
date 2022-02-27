@@ -16,7 +16,7 @@
     <form action="Login", method="post">
         用户名：<input type="text" name="username"><br/><br/>
         密码：<input type="password" name="password"><br/><br/>
-        <input type="submit" name="" id="" value="注册">
+        <input type="submit" name="" id="" value="登录">
     </form>
 
 </body>

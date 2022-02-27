@@ -9,7 +9,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>先锋的个人技术笔记</title>
+  <title>先锋的个人技术笔记-注册</title>
 </head>
 <body>
 <h1>使用Servlet完成用户注册</h1>

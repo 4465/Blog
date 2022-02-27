@@ -1,5 +1,8 @@
 package com.xfnlp.servlet;
 
+import com.xfnlp.dao.UserDAOImpl;
+import com.xfnlp.model.User;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
@@ -9,9 +12,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.regex.Pattern;
 
 @WebServlet("/Register")
 public class RegisterServlet extends HttpServlet {
+
+    private UserDAOImpl userDAO = new UserDAOImpl();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -28,27 +34,41 @@ public class RegisterServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection conn  = DriverManager.getConnection("jdbc:mysql://localhost:3306/blog", "root", "root");
+        String err = "";
+        String url = "/register.jsp";
 
-            PreparedStatement ps = conn.prepareStatement("insert into t_user(username,password) values(?,?)");
-
-            ps.setString(1,username);
-            ps.setString(2,password);
-
-            int i = ps.executeUpdate();
-
-            if(i>0){
-                out.print("您已经注册成功");
+        if(username.equals("")||password.equals("")){
+            err += "必须输入完整信息！";
+        }else{
+            if(userDAO.checkUser(username) == true){
+                err += "用户名已经被注册！";
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }catch (Exception e){
-            System.out.println(e);
         }
-        out.close();
+
+        if (err.length() > 0) {
+            request.setAttribute("err", err);
+        }
+
+        try{
+            if(err.length()==0){
+                HttpSession session = request.getSession();
+                session.setAttribute("username", username);
+                userDAO.addUser(new User(0, username,password));
+                userDAO.login(username, password);
+                Cookie loginCookie = new Cookie("username",username);
+                //setting cookie to expiry in 30 mins
+                loginCookie.setMaxAge(30*60);
+                response.addCookie(loginCookie);
+                response.sendRedirect("index.jsp");
+            }else {
+                url = "/register.jsp";
+                RequestDispatcher rd = getServletContext()
+                        .getRequestDispatcher(url);
+                rd.forward(request, response);
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+            response.sendRedirect("/register.jsp");
+        }
     }
 }
