@@ -9,9 +9,9 @@
 <%@page import="java.util.List" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<link rel="stylesheet" href="bootstrap-3.4.1-dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
 
-<script src="bootstrap-5.1.3/dist/js/bootstrap.min.js"></script>
+<%--<script src="bootstrap-3.3.7-dist/dist/js/bootstrap.min.js"></script>--%>
 <script src="js/jquery-3.3.1.js"></script>
 <html>
 <head>
@@ -30,7 +30,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand">先锋博客</a>
+                    <a class="navbar-brand">先锋个人技术笔记</a>
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -71,11 +71,11 @@
 
 
                         %>
-                        <li><a href="">写博客</a></li>
+                        <li><a href="writeblog.jsp">创作博客</a></li>
                         <li class="dropdown">
 
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%=username%><span class="caret"></span></a>
-                            <ul class="dropdown-menu">
+                            <ul class="dropdown dropdown-menu">
                                 <li><a href="">个人中心</a></li>
                                 <li><a href="">我的博客</a></li>
                                 <li><a href="">管理博客</a></li>
