@@ -12,7 +12,7 @@ public class UserDAOImpl implements UserDAO{
     @Override
     public void addUser(User u) {
         Connection conn = DBConnect.getConnection();
-        String sql = "insert into t_user value(?,?)";
+        String sql = "insert into t_user value(0,?,?)";
         PreparedStatement ps;
         try{
             ps = conn.prepareStatement(sql);
